@@ -4350,6 +4350,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+
 
 
 
@@ -4369,6 +4371,7 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"]'); // для ввода комментариев
 
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
+  Object(_modules_filter__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
 /***/ }),
@@ -4402,6 +4405,102 @@ var checkTextInputs = function checkTextInputs(selector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (checkTextInputs);
+
+/***/ }),
+
+/***/ "./src/js/modules/filter.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/filter.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var filter = function filter() {
+  var menu = document.querySelector(".portfolio-menu"),
+      items = document.querySelectorAll("li"),
+      btnAll = menu.querySelector(".all"),
+      btnLovers = menu.querySelector(".lovers"),
+      btnChef = menu.querySelector(".chef"),
+      btnGirl = menu.querySelector(".girl"),
+      btnGuy = menu.querySelector(".guy"),
+      btnGrandmother = menu.querySelector(".grandmother"),
+      btnGranddad = menu.querySelector(".granddad"),
+      wrapper = document.querySelector(".portfolio-wrapper"),
+      markAll = wrapper.querySelectorAll(".all"),
+      markGirl = wrapper.querySelectorAll(".girl"),
+      markLovers = wrapper.querySelectorAll(".lovers"),
+      markChef = wrapper.querySelectorAll(".chef"),
+      markGuy = wrapper.querySelectorAll(".guy"),
+      no = document.querySelector(".portfolio-no");
+
+  var typeFilter = function typeFilter(markType) {
+    markAll.forEach(function (mark) {
+      mark.style.display = "none"; // скрываем все элементы
+
+      mark.classList.remove("animated", "fadeIn");
+    });
+    no.style.display = "none";
+    no.classList.remove("animated", "fadeIn");
+
+    if (markType) {
+      // если хотя бы что-то есть
+      markType.forEach(function (mark) {
+        mark.style.display = "block"; // показывакем элементы
+
+        mark.classList.add("animated", "fadeIn"); // добавляем. классы
+      });
+    } else {
+      // если нечего не было то показывем скрытый блок с текстом
+      no.style.display = "block"; // показывакем элементы
+
+      no.classList.add("animated", "fadeIn"); // добавляем. классы
+    }
+  };
+
+  btnAll.addEventListener("click", function () {
+    // если кликнул на кнопку "показать все"
+    typeFilter(markAll);
+  });
+  btnLovers.addEventListener("click", function () {
+    // аналогично
+    typeFilter(markLovers);
+  });
+  btnChef.addEventListener("click", function () {
+    typeFilter(markChef);
+  });
+  btnGuy.addEventListener("click", function () {
+    typeFilter(markGuy);
+  });
+  btnGirl.addEventListener("click", function () {
+    typeFilter(markGirl);
+  });
+  btnGrandmother.addEventListener("click", function () {
+    typeFilter(); // так как таких картины по ТЗ нету показываем блок "Таких портретов еще не далали"
+  });
+  btnGranddad.addEventListener("click", function () {
+    typeFilter();
+  });
+  menu.addEventListener("click", function (e) {
+    var target = e.target; // элемент, на которое будет происходить событие
+
+    if (target && target.tagName == "LI") {
+      // если пользователь кликнул в тэг Li
+      items.forEach(function (btn) {
+        return btn.classList.remove("active");
+      }); // убрали класс активность со всех элементов меню
+
+      target.classList.add("active"); // добавляем класс активность в элемент , который кликнул пользователь
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filter);
 
 /***/ }),
 
